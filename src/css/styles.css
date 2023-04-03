@@ -18,3 +18,21 @@ body {
   max-width: 320px;
   margin-bottom: 16px;
 }
+ul {
+  padding-left: 0px;
+  display: inline;
+}
+
+li {
+  display: flex;
+  margin: 10px;
+  margin-left: 0;
+  list-style: none;
+  text-align: center;
+}
+
+.country-name {
+  margin-left: 10px;
+}
+
+

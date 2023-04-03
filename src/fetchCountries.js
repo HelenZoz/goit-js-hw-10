@@ -13,11 +13,11 @@ import Notiflix from 'notiflix';
 //  про те, що пошук не дав результатів.Додай повідомлення 
 // "Oops, there is no country with that name".
 
-BASE_URL = 'https://restcountries.com/v3.1/name';
+const BASE_URL = 'https://restcountries.com/v3.1/name/';
 
 
 export function fetchCountries(name) {
-    fetch(`${BASE_URL}/${name}?fields=name,capital,population,flags,languages`)
+    return fetch(`${BASE_URL}${name}?fields=name,capital,population,flags,languages`)
         .then(response => {
         console.log(response)
         if (!response.ok) {
@@ -26,6 +26,7 @@ export function fetchCountries(name) {
         return response.json();
         })
         .catch(error => {
+            console.log(error);
             Notiflix.Notify.warning("Oops, there is no country with that name")
         });
 }
