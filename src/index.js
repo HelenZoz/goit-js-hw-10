@@ -81,7 +81,7 @@ function addCountryInfo(data) {
     return data.map(({ name, capital, population, flags, languages }) =>`
         <img src='${flags.svg}' alt='${name.official}' width='100' height='50'>
         <h1>${name.official}</h1>
-        <ul class="card">
+        <ul>
         <li>Capital: ${capital}</li>
         <li>Population: ${population}</li>
         <li>Languages: ${Object.values(languages)}</li>
