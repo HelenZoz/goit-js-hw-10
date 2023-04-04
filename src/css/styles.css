@@ -18,6 +18,7 @@ body {
   max-width: 320px;
   margin-bottom: 16px;
 }
+
 ul {
   padding-left: 0px;
   display: inline;
@@ -33,6 +34,10 @@ li {
 
 .country-name {
   margin-left: 10px;
+}
+
+img {
+  display: block;
 }
 
 

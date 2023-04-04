@@ -29,30 +29,42 @@ countryInfoEl.innerHTML = '';
     if (!searchCountry)
         return;
     
-   fetchCountries(searchCountry)
+    fetchCountries(searchCountry)
         .then(data => {
-      console.log(data);
-// Якщо у відповіді бекенд повернув > 10 країн: повідомлення 
-// "Too many matches found. Please enter a more specific name.".
-        if (data.length > 10 && searchCountry.length === 1) {
-           return Notiflix.Notify.info('Too many matches found. Please enter a more specific name.');                      
-            // Якщо бекенд повернув від 2-х до 10-и країн, під тестовим полем
-// відображається список знайдених країн.Кожен елемент списку 
-// складається з прапора та назви країни.
-        } else if (data.length >= 2 && data.length < 10) {
-        countryListEl.innerHTML = addCountryList(data);
-        countryInfoEl.innerHTML = '';
-        console.log(data);
-            return;
-        }
-// Якщо результат запиту - це масив з однією країною, в інтерфейсі 
-// відображається розмітка картки з даними про країну: прапор, 
-// назва, столиця, населення і мови.
-        countryInfoEl.innerHTML = addCountryInfo(data);
-            countryListEl.innerHTML = '';
             console.log(data);
-            return;
+            // Якщо у відповіді бекенд повернув > 10 країн: повідомлення 
+            // "Too many matches found. Please enter a more specific name.".
+            if (data.length > 10 && searchCountry.length === 1) {
+                return Notiflix.Notify.info('Too many matches found. Please enter a more specific name.');
+                // Якщо бекенд повернув від 2-х до 10-и країн, під тестовим полем
+                // відображається список знайдених країн.Кожен елемент списку
+                // складається з прапора та назви країни.
+            }
+            renderMarkup(data);
         })
+        //    } if (data.length >= 2 && data.length < 10) {
+        //        countryListEl.innerHTML = addCountryList(data);
+        //        countryInfoEl.innerHTML = '';
+        //        console.log(data);
+        //        return;
+        //    } 
+        //    // Якщо результат запиту - це масив з однією країною, в інтерфейсі 
+        //    // відображається розмітка картки з даними про країну: прапор, 
+        //    // назва, столиця, населення і мови.
+        //        countryInfoEl.innerHTML = addCountryInfo(data);        
+        //        console.log(data);
+        //        return;
+        // })
+}
+
+function renderMarkup(data) {
+    if (data.length === 1) {
+        countryInfoEl.innerHTML = '';
+        countryListEl.innerHTML = addCountryInfo(data);
+    } else {      
+        countryListEl.innerHTML = '';
+        countryInfoEl.innerHTML = addCountryList(data);
+    }
 }
 
 function addCountryList(data) {
@@ -64,6 +76,7 @@ function addCountryList(data) {
 };
 
 function addCountryInfo(data) {
+
     return data.map(({ name, capital, population, flags, languages }) =>`
         <img src='${flags.svg}' alt='${name.official}' width='100' height='50'>
         <h1>${name.official}</h1>
