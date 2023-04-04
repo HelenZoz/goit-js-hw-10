@@ -32,10 +32,12 @@ countryInfoEl.innerHTML = '';
     fetchCountries(searchCountry)
         .then(data => {
             console.log(data);
+            console.log(data.length);
             // Якщо у відповіді бекенд повернув > 10 країн: повідомлення 
             // "Too many matches found. Please enter a more specific name.".
-            if (data.length > 10 && searchCountry.length === 1) {
-                return Notiflix.Notify.info('Too many matches found. Please enter a more specific name.');
+            if (data.length > 10) {
+                Notiflix.Notify.info('Too many matches found. Please enter a more specific name.');
+                return;
                 // Якщо бекенд повернув від 2-х до 10-и країн, під тестовим полем
                 // відображається список знайдених країн.Кожен елемент списку
                 // складається з прапора та назви країни.
@@ -76,7 +78,6 @@ function addCountryList(data) {
 };
 
 function addCountryInfo(data) {
-
     return data.map(({ name, capital, population, flags, languages }) =>`
         <img src='${flags.svg}' alt='${name.official}' width='100' height='50'>
         <h1>${name.official}</h1>
